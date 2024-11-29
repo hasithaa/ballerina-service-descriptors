@@ -1,11 +1,15 @@
 {
     "services": {
-        "Kafka": {
+        "Service": {
+            "module": [
+                "ballerina",
+                "kafka"
+            ],
             "resourceFunctions": [
                 {
                     "accessors": null,
                     "paths": null,
-                    "signature": null,
+                    "signatures": null,
                     "annotationAttachments": null,
                     "repeatability": "0"
                 }
@@ -14,9 +18,9 @@
                 {
                     "kind": "REMOTE",
                     "functionName": "onConsumerRecord",
-                    "signature": [
-                        [
-                            [
+                    "signatures": [
+                        {
+                            "parameters": [
                                 {
                                     "type": {
                                         "typeName": "Caller",
@@ -56,7 +60,9 @@
                                     "repeatability": "*"
                                 }
                             ],
-                            {
+                            "minParams": 1,
+                            "maxParams": 3,
+                            "returnType": {
                                 "type": [
                                     "|",
                                     [
@@ -66,7 +72,7 @@
                                 ],
                                 "annotationAttachments": null
                             }
-                        ]
+                        }
                     ],
                     "annotationAttachments": null,
                     "repeatability": "1"
@@ -74,11 +80,17 @@
                 {
                     "kind": "REMOTE",
                     "functionName": "onError",
-                    "signature": [
-                        [
-                            [
+                    "signatures": [
+                        {
+                            "parameters": [
                                 {
-                                    "type": "error",
+                                    "type": {
+                                        "typeName": "Error",
+                                        "module": [
+                                            "ballerina",
+                                            "kafka"
+                                        ]
+                                    },
                                     "paramName": null,
                                     "annotationAttachments": null,
                                     "repeatability": "?"
@@ -96,7 +108,9 @@
                                     "repeatability": "?"
                                 }
                             ],
-                            {
+                            "minParams": 1,
+                            "maxParams": 1,
+                            "returnType": {
                                 "type": [
                                     "|",
                                     [
@@ -106,7 +120,7 @@
                                 ],
                                 "annotationAttachments": null
                             }
-                        ]
+                        }
                     ],
                     "annotationAttachments": null,
                     "repeatability": "?"
@@ -114,7 +128,7 @@
                 {
                     "kind": "REMOTE",
                     "functionName": null,
-                    "signature": null,
+                    "signatures": null,
                     "annotationAttachments": null,
                     "repeatability": "0"
                 }

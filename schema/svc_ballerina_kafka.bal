@@ -1,6 +1,7 @@
 Rule kafkaRule = {
     services: {
-        "Kafka": {
+        "Service": {
+            module: ["ballerina", "kafka"],
             remoteFunctions: [kafkaOnConsumerRecordRule, kafkaOnErrorRule, NO_REMOTE_FUNCTION_RULE],
             resourceFunctions: [NO_RESOURCE_FUNCTION_RULE],
             methodRule: []
@@ -10,14 +11,28 @@ Rule kafkaRule = {
 
 final RemoteFunctionRule kafkaOnConsumerRecordRule = {
     functionName: "onConsumerRecord",
-    signature: [[[callerParam, recordsParam, payloadParam], returnType]],
+    signatures: [kafkaOnConsumerRecordSignature],
     repeatability: ONE
 };
 
 final RemoteFunctionRule kafkaOnErrorRule = {
     functionName: "onError",
-    signature: [[[errorParam, callerParam], returnType]],
+    signatures: [kafkaOnErrorSignature],
     repeatability: ZERO_OR_ONE
+};
+
+final FunctionSignature kafkaOnConsumerRecordSignature = {
+    parameters: [callerParam, recordsParam, payloadParam],
+    minParams: 1,
+    maxParams: 3,
+    returnType: returnType
+};
+
+final FunctionSignature kafkaOnErrorSignature = {
+    parameters: [errorParam, callerParam],
+    minParams: 1,
+    maxParams: 1,
+    returnType: returnType
 };
 
 // Parameter definitions
@@ -40,7 +55,7 @@ final Parameter payloadParam = {
 };
 
 final Parameter errorParam = {
-    'type: "error",
+    'type: {typeName: "Error", module: ["ballerina", "kafka"]},
     paramName: (),
     repeatability: ZERO_OR_ONE
 };

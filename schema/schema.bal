@@ -2,27 +2,27 @@ import ballerina/lang.regexp;
 
 final ResourceFunctionRule ANY_RESOURCE_FUNCTION_RULE = {
     accessors: (),
-    signature: (),
+    signatures: (),
     paths: (),
     repeatability: ZERO_OR_MORE
 };
 
 final ResourceFunctionRule NO_RESOURCE_FUNCTION_RULE = {
     accessors: (),
-    signature: (),
+    signatures: (),
     paths: (),
     repeatability: ZERO
 };
 
 final RemoteFunctionRule ANY_REMOTE_FUNCTION_RULE = {
     functionName: (),
-    signature: (),
+    signatures: (),
     repeatability: ZERO_OR_MORE
 };
 
 final RemoteFunctionRule NO_REMOTE_FUNCTION_RULE = {
     functionName: (),
-    signature: (),
+    signatures: (),
     repeatability: ZERO
 };
 
@@ -33,47 +33,49 @@ type Rule readonly & record {|
 # Represent Service Level Rules
 type ServiceTypeRule readonly & record {|
 
+    ModuleReference module;
+
     # Allowed Resource Functions
-    # - If absent, any resource function is allowed.
-    # - If present, the given resource functions must be allowed.
+    # If absent, any resource function is allowed.
+    # If present, the given resource functions must be allowed.
     ResourceFunctionRule[]? resourceFunctions = ();
 
     # Allowed Remote Functions
-    # - If absent, any remote function is allowed.
-    # - If present, the given remote functions must be allowed.
+    # If absent, any remote function is allowed.
+    # If present, the given remote functions must be allowed.
     RemoteFunctionRule[]? remoteFunctions = ();
 
     # Allowed Functions
-    # - If absent, any function is allowed.
-    # - If present, the given functions must be allowed.
+    # If absent, any function is allowed.
+    # If present, the given functions must be allowed.
     MethodRule[]? methodRule = ();
 
     # Allowed annotation attachments.
-    # - If absent, any annotation attachment is allowed.
-    # - If present, the given annotations must be attached to the function.
+    # If absent, any annotation attachment is allowed.
+    # If present, the given annotations must be attached to the function.
     AnnotationAttachment[]? annotationAttachments = ();
 |};
 
 # Represents a rule for a resource function in a service.
 type ResourceFunctionRule readonly & record {|
     # Allowed accessors (e.g., GET).
-    # - If absent, any accessor is allowed.
-    # - If present, the given accessors must be allowed.
+    # If absent, any accessor is allowed.
+    # If present, the given accessors must be allowed.
     ResourceAccessList? accessors;
 
     # Allowed resource paths.
-    # - If absent, any path is allowed.
-    # - If present, the given paths must be allowed.
+    # If absent, any path is allowed.
+    # If present, the given paths must be allowed.
     ResourcePathList? paths;
 
     # Function signature rules.
-    # - If absent, any signature is allowed.
-    # - If present, the given signatures must be allowed.
-    FunctionSignatureList? signature;
+    # If absent, any signature is allowed.
+    # If present, the given signatures must be allowed.
+    FunctionSignatureList? signatures;
 
     # Allowed annotation attachments.
-    # - If absent, any annotation attachment is allowed.
-    # - If present, the given annotations must be attached to the function.
+    # If absent, any annotation attachment is allowed.
+    # If present, the given annotations must be attached to the function.
     AnnotationAttachment[]? annotationAttachments = ();
 
     # Repeatability rule for the resource function.
@@ -99,19 +101,19 @@ type MethodRule readonly & record {|
 # Represents a general rule for functions.
 type FunctionRule record {|
     # The name of the function.
-    # - If absent, any name is allowed.
-    # - If a string, the given name must match exactly.
-    # - If a RegExp, the given name must match the pattern.
+    # If absent, any name is allowed.
+    # If a string, the given name must match exactly.
+    # If a RegExp, the given name must match the pattern.
     Name? functionName;
 
     # Allowed function signatures.
-    # - If absent, any signature is allowed.
-    # - If present, the given signatures must be allowed.
-    FunctionSignatureList? signature;
+    # If absent, any signature is allowed.
+    # If present, the given signatures must be allowed.
+    FunctionSignatureList? signatures;
 
     # Allowed annotation attachments.
-    # - If absent, any annotation attachment is allowed.
-    # - If present, the given annotations must be attached to the function.
+    # If absent, any annotation attachment is allowed.
+    # If present, the given annotations must be attached to the function.
     AnnotationAttachment[]? annotationAttachments = ();
 
     # Repeatability rule for the function.
@@ -119,12 +121,26 @@ type FunctionRule record {|
 |};
 
 # A list of function signatures, where each signature contains a parameter list and a return type.
+# At least one signature must be present.
 type FunctionSignatureList readonly & [FunctionSignature, FunctionSignature...];
 
-type FunctionSignature readonly & [ParameterList, ReturnType];
+type FunctionSignature readonly & record {|
+    # A list of parameters for the function.
+    # If absent, any parameters are allowed.
+    # If present, the given parameters must be allowed.
+    Parameter[]? parameters;
 
-# A list of parameters for a function.
-type ParameterList readonly & [Parameter...];
+    # The minimum number of parameters allowed.
+    int minParams = 0;
+
+    # The maximum number of parameters allowed.
+    int maxParams = 255;
+
+    # The return type of the function.
+    # If absent, any return type is allowed.
+    # If present, the given return type must be allowed.
+    ReturnType? returnType = ();
+|};
 
 # Represents a return type, which can be a built-in type or a user-defined type.
 type ReturnType readonly & record {|
@@ -132,8 +148,8 @@ type ReturnType readonly & record {|
     Type 'type;
 
     # Allowed annotation attachments for the parameter.
-    # - If absent, any annotation attachment is allowed.
-    # - If present, the given annotations must be attached to the parameter.
+    # If absent, any annotation attachment is allowed.
+    # If present, the given annotations must be attached to the parameter.
     AnnotationAttachment[]? annotationAttachments = ();
 |};
 
@@ -143,14 +159,14 @@ type Parameter readonly & record {|
     Type 'type;
 
     # The name of the parameter.
-    # - If absent, any name is allowed.
-    # - If a string, the given name must match exactly.
-    # - If a RegExp, the given name must match the pattern.
+    # If absent, any name is allowed.
+    # If a string, the given name must match exactly.
+    # If a RegExp, the given name must match the pattern.
     Name paramName = ();
 
     # Allowed annotation attachments for the parameter.
-    # - If absent, any annotation attachment is allowed.
-    # - If present, the given annotations must be attached to the parameter.
+    # If absent, any annotation attachment is allowed.
+    # If present, the given annotations must be attached to the parameter.
     AnnotationAttachment[]? annotationAttachments = ();
 
     # Repeatability rule for the parameter.
@@ -219,13 +235,13 @@ type ResourcePath [ResourcePathSegment, ResourcePathSegment...]|".";
 # Represents a segment of a resource path.
 type ResourcePathSegment string|record {|
     # The type of the path segment.
-    # - If absent, any type is allowed.
-    # - If present, the given type must match.
+    # If absent, any type is allowed.
+    # If present, the given type must match.
     SimpleType? segmentType = ();
 
     # The name of the path segment.
-    # - If absent, any name is allowed.
-    # - If present, the given name must match.
+    # If absent, any name is allowed.
+    # If present, the given name must match.
     string? segmentName = ();
 |};
 
