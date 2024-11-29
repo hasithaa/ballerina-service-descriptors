@@ -1,0 +1,126 @@
+{
+    "services": {
+        "Kafka": {
+            "resourceFunctions": [
+                {
+                    "accessors": null,
+                    "paths": null,
+                    "signature": null,
+                    "annotationAttachments": null,
+                    "repeatability": "0"
+                }
+            ],
+            "remoteFunctions": [
+                {
+                    "kind": "REMOTE",
+                    "functionName": "onConsumerRecord",
+                    "signature": [
+                        [
+                            [
+                                {
+                                    "type": {
+                                        "typeName": "Caller",
+                                        "module": [
+                                            "ballerina",
+                                            "kafka"
+                                        ]
+                                    },
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "?"
+                                },
+                                {
+                                    "type": [
+                                        "array",
+                                        {
+                                            "typeName": "ConsumerRecord",
+                                            "module": [
+                                                "ballerina",
+                                                "kafka"
+                                            ]
+                                        },
+                                        null
+                                    ],
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "*"
+                                },
+                                {
+                                    "type": [
+                                        "array",
+                                        "anydata",
+                                        null
+                                    ],
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "*"
+                                }
+                            ],
+                            {
+                                "type": [
+                                    "|",
+                                    [
+                                        "error",
+                                        "()"
+                                    ]
+                                ],
+                                "annotationAttachments": null
+                            }
+                        ]
+                    ],
+                    "annotationAttachments": null,
+                    "repeatability": "1"
+                },
+                {
+                    "kind": "REMOTE",
+                    "functionName": "onError",
+                    "signature": [
+                        [
+                            [
+                                {
+                                    "type": "error",
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "?"
+                                },
+                                {
+                                    "type": {
+                                        "typeName": "Caller",
+                                        "module": [
+                                            "ballerina",
+                                            "kafka"
+                                        ]
+                                    },
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "?"
+                                }
+                            ],
+                            {
+                                "type": [
+                                    "|",
+                                    [
+                                        "error",
+                                        "()"
+                                    ]
+                                ],
+                                "annotationAttachments": null
+                            }
+                        ]
+                    ],
+                    "annotationAttachments": null,
+                    "repeatability": "?"
+                },
+                {
+                    "kind": "REMOTE",
+                    "functionName": null,
+                    "signature": null,
+                    "annotationAttachments": null,
+                    "repeatability": "0"
+                }
+            ],
+            "methodRule": [],
+            "annotationAttachments": null
+        }
+    }
+}
