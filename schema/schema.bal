@@ -26,8 +26,8 @@ final RemoteFunctionRule NO_REMOTE_FUNCTION_RULE = {
     repeatability: ZERO
 };
 
-type Rule readonly & record {|
-    map<ServiceTypeRule> services;
+type ModuleData readonly & record {|
+    map<ServiceTypeRule> servicesRules;
 |};
 
 # Represent Service Level Rules
@@ -186,11 +186,16 @@ type AnnotationAttachment readonly & record {|
 |};
 
 // Had to add () to make it work.
-type Type ()|BuiltInType|TypeReference|UnionType|IntersectionType|MapType|ArrayType|TupleType|StreamType|TableType;
+type Type ()|BuiltInType|TypeReference|OneOf|Optional|UnionType|IntersectionType|MapType|ArrayType|TupleType|StreamType|TableType;
 
 type BuiltInType "string"|"int"|"boolean"|"float"|"decimal"|"()"|"error"|"xml"|"json"|"readonly"|"any"|"anydata";
 
 // JBallerina Bug: readonly & ["|", Type...] is not allowed.
+
+type OneOf readonly & ["1?", [Type, Type...]];
+
+type Optional readonly & ["?", [Type, Type...]];
+
 type UnionType readonly & ["|", [Type, Type...]];
 
 type IntersectionType readonly & ["&", Type, Type];

@@ -1,5 +1,5 @@
-Rule kafkaRule = {
-    services: {
+ModuleData kafkaRule = {
+    servicesRules: {
         "Service": {
             module: ["ballerina", "kafka"],
             remoteFunctions: [kafkaOnConsumerRecordRule, kafkaOnErrorRule, NO_REMOTE_FUNCTION_RULE],
@@ -43,7 +43,14 @@ final Parameter callerParam = {
 };
 
 final Parameter recordsParam = {
-    'type: ["array", {typeName: "ConsumerRecord", module: ["ballerina", "kafka"]}, ()],
+    'type: [
+        "1?",
+        [
+            ["array", {typeName: "AnydataConsumerRecord", module: ["ballerina", "kafka"]}, ()],
+            ["array", {typeName: "ByteConsumerRecords", module: ["ballerinax", "kafka"]}, ()],
+            ["array", "anydata", ()]
+        ]
+    ],
     paramName: (),
     repeatability: ZERO_OR_MORE
 };
@@ -61,5 +68,5 @@ final Parameter errorParam = {
 };
 
 final ReturnType returnType = {
-    'type: ["|", ["error", "()"]]
+    'type: ["?", ["error"]]
 };

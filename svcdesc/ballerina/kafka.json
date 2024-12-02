@@ -1,5 +1,5 @@
 {
-    "services": {
+    "servicesRules": {
         "Service": {
             "module": [
                 "ballerina",
@@ -35,15 +35,36 @@
                                 },
                                 {
                                     "type": [
-                                        "array",
-                                        {
-                                            "typeName": "ConsumerRecord",
-                                            "module": [
-                                                "ballerina",
-                                                "kafka"
+                                        "1?",
+                                        [
+                                            [
+                                                "array",
+                                                {
+                                                    "typeName": "AnydataConsumerRecord",
+                                                    "module": [
+                                                        "ballerina",
+                                                        "kafka"
+                                                    ]
+                                                },
+                                                null
+                                            ],
+                                            [
+                                                "array",
+                                                {
+                                                    "typeName": "ByteConsumerRecords",
+                                                    "module": [
+                                                        "ballerinax",
+                                                        "kafka"
+                                                    ]
+                                                },
+                                                null
+                                            ],
+                                            [
+                                                "array",
+                                                "anydata",
+                                                null
                                             ]
-                                        },
-                                        null
+                                        ]
                                     ],
                                     "paramName": null,
                                     "annotationAttachments": null,
@@ -64,10 +85,9 @@
                             "maxParams": 3,
                             "returnType": {
                                 "type": [
-                                    "|",
+                                    "?",
                                     [
-                                        "error",
-                                        "()"
+                                        "error"
                                     ]
                                 ],
                                 "annotationAttachments": null
@@ -112,10 +132,9 @@
                             "maxParams": 1,
                             "returnType": {
                                 "type": [
-                                    "|",
+                                    "?",
                                     [
-                                        "error",
-                                        "()"
+                                        "error"
                                     ]
                                 ],
                                 "annotationAttachments": null
