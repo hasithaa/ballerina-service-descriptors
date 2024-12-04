@@ -11,7 +11,8 @@ final ResourceFunctionRule NO_RESOURCE_FUNCTION_RULE = {
     accessors: (),
     signatures: (),
     paths: (),
-    repeatability: ZERO
+    repeatability: ZERO,
+    matchRule: STRICT
 };
 
 final RemoteFunctionRule ANY_REMOTE_FUNCTION_RULE = {
@@ -23,7 +24,8 @@ final RemoteFunctionRule ANY_REMOTE_FUNCTION_RULE = {
 final RemoteFunctionRule NO_REMOTE_FUNCTION_RULE = {
     functionName: (),
     signatures: (),
-    repeatability: ZERO
+    repeatability: ZERO,
+    matchRule: STRICT
 };
 
 type ModuleData readonly & record {|
@@ -68,9 +70,9 @@ type ResourceFunctionRule readonly & record {|
     # If present, the given paths must be allowed.
     ResourcePathList? paths;
 
-    # Function signature rules.
+    # Allowed function signatures.
     # If absent, any signature is allowed.
-    # If present, the given signatures must be allowed.
+    # If present, the one of the given signatures must match.
     FunctionSignatureList? signatures;
 
     # Allowed annotation attachments.
@@ -80,6 +82,9 @@ type ResourceFunctionRule readonly & record {|
 
     # Repeatability rule for the resource function.
     REPEATABILITY repeatability = ONE;
+
+    # Enforce match rule.
+    ENFORCE matchRule = IGNORE;
 |};
 
 # Represents a rule for a remote function.
@@ -90,6 +95,13 @@ type RemoteFunctionRule readonly & record {|
     # The function kind, always "REMOTE" for remote functions.
     string kind = "REMOTE";
 |};
+
+enum ENFORCE {
+    # If not matching, throw error.
+    STRICT = "STRICT",
+    # If not matching, ignore.
+    IGNORE = "IGNORE"
+}
 
 type MethodRule readonly & record {|
     *FunctionRule;
@@ -108,7 +120,7 @@ type FunctionRule record {|
 
     # Allowed function signatures.
     # If absent, any signature is allowed.
-    # If present, the given signatures must be allowed.
+    # If present, the one of the given signatures must match.
     FunctionSignatureList? signatures;
 
     # Allowed annotation attachments.
@@ -118,10 +130,13 @@ type FunctionRule record {|
 
     # Repeatability rule for the function.
     REPEATABILITY repeatability = ONE;
+
+    # Enforce match rule.
+    ENFORCE matchRule = IGNORE;
 |};
 
-# A list of function signatures, where each signature contains a parameter list and a return type.
-# At least one signature must be present.
+// # A list of function signatures, where each signature contains a parameter list and a return type.
+// # At least one signature must be present.
 type FunctionSignatureList readonly & [FunctionSignature, FunctionSignature...];
 
 type FunctionSignature readonly & record {|

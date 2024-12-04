@@ -22,27 +22,27 @@ final RemoteFunctionRule kafkaOnErrorRule = {
 };
 
 final FunctionSignature kafkaOnConsumerRecordSignature = {
-    parameters: [callerParam, recordsParam, payloadParam],
+    parameters: [kafkaCallerParam, kafkaRecordsParam, kafkaPayloadParam],
     minParams: 1,
     maxParams: 3,
-    returnType: returnType
+    returnType: kafkaReturnType
 };
 
 final FunctionSignature kafkaOnErrorSignature = {
-    parameters: [errorParam, callerParam],
+    parameters: [kafkaErrorParam, kafkaCallerParam],
     minParams: 1,
     maxParams: 1,
-    returnType: returnType
+    returnType: kafkaReturnType
 };
 
 // Parameter definitions
-final Parameter callerParam = {
+final Parameter kafkaCallerParam = {
     'type: {typeName: "Caller", module: ["ballerina", "kafka"]},
     paramName: (),
     repeatability: ZERO_OR_ONE
 };
 
-final Parameter recordsParam = {
+final Parameter kafkaRecordsParam = {
     'type: [
         "1?",
         [
@@ -55,18 +55,18 @@ final Parameter recordsParam = {
     repeatability: ZERO_OR_MORE
 };
 
-final Parameter payloadParam = {
+final Parameter kafkaPayloadParam = {
     'type: ["array", "anydata", ()],
     paramName: (),
     repeatability: ZERO_OR_MORE
 };
 
-final Parameter errorParam = {
+final Parameter kafkaErrorParam = {
     'type: {typeName: "Error", module: ["ballerina", "kafka"]},
     paramName: (),
     repeatability: ZERO_OR_ONE
 };
 
-final ReturnType returnType = {
+final ReturnType kafkaReturnType = {
     'type: ["?", ["error"]]
 };
