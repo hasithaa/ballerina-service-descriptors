@@ -1,0 +1,159 @@
+{
+    "servicesRules": {
+        "Service": {
+            "module": [
+                "ballerina",
+                "grpc"
+            ],
+            "resourceFunctions": [
+                {
+                    "accessors": null,
+                    "paths": null,
+                    "signatures": null,
+                    "annotationAttachments": null,
+                    "repeatability": "0",
+                    "matchRule": "STRICT"
+                }
+            ],
+            "remoteFunctions": [
+                {
+                    "kind": "REMOTE",
+                    "functionName": null,
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "type": [
+                                        "1?",
+                                        [
+                                            [
+                                                "stream",
+                                                "anydata",
+                                                [
+                                                    "1?",
+                                                    [
+                                                        [
+                                                            "?",
+                                                            [
+                                                                "error"
+                                                            ]
+                                                        ],
+                                                        "()"
+                                                    ]
+                                                ]
+                                            ],
+                                            "anydata"
+                                        ]
+                                    ],
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "+"
+                                }
+                            ],
+                            "minParams": 0,
+                            "maxParams": 255,
+                            "returnType": {
+                                "type": [
+                                    "1?",
+                                    [
+                                        [
+                                            "stream",
+                                            "anydata",
+                                            [
+                                                "1?",
+                                                [
+                                                    [
+                                                        "?",
+                                                        [
+                                                            "error"
+                                                        ]
+                                                    ],
+                                                    "()"
+                                                ]
+                                            ]
+                                        ],
+                                        "anydata"
+                                    ]
+                                ],
+                                "annotationAttachments": null
+                            }
+                        },
+                        {
+                            "parameters": [
+                                {
+                                    "type": {
+                                        "typeName": "Caller",
+                                        "module": [
+                                            "ballerina",
+                                            "grpc"
+                                        ]
+                                    },
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "1"
+                                },
+                                {
+                                    "type": [
+                                        "1?",
+                                        [
+                                            [
+                                                "stream",
+                                                "anydata",
+                                                [
+                                                    "1?",
+                                                    [
+                                                        [
+                                                            "?",
+                                                            [
+                                                                "error"
+                                                            ]
+                                                        ],
+                                                        "()"
+                                                    ]
+                                                ]
+                                            ],
+                                            "anydata"
+                                        ]
+                                    ],
+                                    "paramName": null,
+                                    "annotationAttachments": null,
+                                    "repeatability": "*"
+                                }
+                            ],
+                            "minParams": 1,
+                            "maxParams": 255,
+                            "returnType": {
+                                "type": [
+                                    "1?",
+                                    [
+                                        [
+                                            "?",
+                                            [
+                                                "error"
+                                            ]
+                                        ],
+                                        "()"
+                                    ]
+                                ],
+                                "annotationAttachments": null
+                            }
+                        }
+                    ],
+                    "annotationAttachments": null,
+                    "repeatability": "+",
+                    "matchRule": "IGNORE"
+                },
+                {
+                    "kind": "REMOTE",
+                    "functionName": null,
+                    "signatures": null,
+                    "annotationAttachments": null,
+                    "repeatability": "0",
+                    "matchRule": "STRICT"
+                }
+            ],
+            "methodRule": [],
+            "annotationAttachments": null
+        }
+    }
+}
