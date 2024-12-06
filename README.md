@@ -15,9 +15,9 @@ Bringing these validation rules to the language is not an easy task. Therefore, 
 
 - A draft schema has been created and can be found in the [schema](schema/schema.bal).
 - Example schemas:
-  - [Kafka Service](schema/svc_ballerina_kafka.json)
-  - [gRPC Service](schema/svc_ballerina_grpc.json)
-  - [HTTP Service](schema/svc_ballerina_http.json)
+  - [Kafka Service](schema/svc_ballerina_kafka.bal)
+  - [gRPC Service](schema/svc_ballerina_grpc.bal)
+  - [HTTP Service](schema/svc_ballerina_http.bal)
 
 ## Validation Rules (WIP)
 

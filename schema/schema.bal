@@ -200,7 +200,7 @@ type AnnotationAttachment readonly & record {|
     REPEATABILITY repeatability = ONE;
 |};
 
-// Had to add () to make it work.
+// Had to add () to make it work. JBallerina Bug. () is not used.
 type Type ()|BuiltInType|TypeReference|OneOf|Optional|UnionType|IntersectionType|MapType|ArrayType|TupleType|StreamType|TableType;
 
 type BuiltInType "string"|"int"|"boolean"|"float"|"decimal"|"()"|"error"|"xml"|"json"|"readonly"|"any"|"anydata";
